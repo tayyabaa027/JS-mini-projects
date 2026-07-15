@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click Speed Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #6296be;
+    }
+    button {
+      padding: 20px 40px;
+      font-size: 24px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    #score {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+    #timer {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Click the Button Game</h1>
+  <button id="clickBtn">Click Me!</button>
+  <div id="score">Score: 0</div>
+  <div id="timer">Time left: 10s</div>
+
+  <script>
+    let score = 0;
+    let timeLeft = 10;
+    const scoreDisplay = document.getElementById('score');
+    const timerDisplay = document.getElementById('timer');
+    const button = document.getElementById('clickBtn');
+
+    // Start countdown
+    const countdown = setInterval(() => {
+      timeLeft--;
+      timerDisplay.textContent = `Time left: ${timeLeft}s`;
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+        button.disabled = true;
+        alert(`Time's up! Your final score is ${score}`);
+      }
+    }, 1000);
+
+    // Increase score on click
+    button.addEventListener('click', () => {
+      score++;
+      scoreDisplay.textContent = `Score: ${score}`;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #212121;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 500px;
+            background: #2f2f2f;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, .4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 17px;
+            border: none;
+            border-radius: 8px;
+            background: #0d6efd;
+            color: white;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        button:hover {
+            background: #0b5ed7;
+        }
+
+        #result {
+            margin-top: 20px;
+            background: #1b1b1b;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 180px;
+            overflow: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>GitHub API Fetcher</h1>
+
+        <label for="url">Enter API URL</label>
+        <input type="text" id="url" placeholder="https://api.github.com/users/hiteshchoudhary">
+
+        <button id="btn">Get Data</button>
+
+        <pre id="result"></pre>
+    </div>
+    <script>
+        const btn = document.getElementById("btn");
+        const result = document.getElementById("result");
+        btn.addEventListener("click", function () {
+            const requestUrl = document.getElementById("url").value;
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', requestUrl);
+         console.log(this.responseText)
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    const data = JSON.parse(this.responseText);
+                    result.innerHTML = this.responseText;
+                      
+                }
+            }
+            xhr.send();
+        });
+
+    </script>
+</body>
+
+</html>

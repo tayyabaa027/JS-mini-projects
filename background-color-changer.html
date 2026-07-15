@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+            color: rgb(213, 211, 211);
+            text-align: center;
+
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: rgb(17, 105, 17);
+            width: 100px;
+            border: 2px solid wheat;
+
+
+
+        }
+
+        button:hover {
+            background-color: rgb(76, 175, 76);
+            font-weight: 300;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>START SHOULD CHANGE THE background-color EVERY SECOND </h1>
+    <div id="parent">
+
+        <button id="start">START</button>
+        <button id="stop">STOP</button>
+
+    </div>
+    <script>
+
+        const parent = document.querySelector("#parent");
+        let changecolor;
+        parent.addEventListener("click", (e) => {
+            if (e.target.id == "start") {
+                if(!changecolor)
+            {
+                changecolor = setInterval(function () {
+                    document.body.style.backgroundColor = randomColor();
+                }, 1000);
+            }
+            }
+            if (e.target.id == "stop") {
+                clearInterval(changecolor);
+                changecolor=null;
+            }
+
+        });
+
+        function randomColor() {
+            const hex = "0123456789ABCDEF";
+            let color = "#";
+
+            for (let i = 0; i < 6; i++) {
+                color += hex[Math.floor(Math.random() * 16)];
+            }
+
+            return color;
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #141E30, #243B55);
+        }
+
+        #wrapper {
+            width: 420px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, .4);
+            color: white;
+        }
+
+        h1 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        p {
+            color: #ddd;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .form {
+            margin-top: 30px;
+        }
+
+        label {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .guessField {
+            width: 100%;
+            padding: 15px;
+            font-size: 22px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #00d4ff;
+            transition: .3s;
+        }
+
+        .guessField:focus {
+            box-shadow: 0 0 15px #00d4ff;
+        }
+
+        .guessSubmit {
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #00d4ff;
+            color: #111;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .guessSubmit:hover {
+            background: #00a8cc;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .resultParas {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .resultParas p {
+            font-size: 17px;
+            margin: 12px 0;
+        }
+
+        .guesses {
+            color: #ffd166;
+            font-weight: bold;
+        }
+
+        .lastResult {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .lowOrHi {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        @media(max-width:500px) {
+
+            #wrapper {
+                width: 90%;
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            label {
+                font-size: 1.1rem;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <h1>Number Guessing Game</h1>
+
+        <p>Try and guess a random number between <strong>1 and 100</strong>.</p>
+
+        <p>You have <strong>10 attempts</strong> to guess the correct number.</p>
+
+        <form class="form">
+
+            <label for="guessField">Guess a Number</label>
+
+            <input type="number" id="guessField" class="guessField" min="1" max="100">
+
+            <input type="submit" id="subt" value="Submit Guess" class="guessSubmit">
+
+        </form>
+
+        <div class="resultParas">
+
+            <p>Previous Guesses:
+                <span class="guesses"></span>
+            </p>
+
+            <p>Guesses Remaining:
+                <span class="lastResult">10</span>
+            </p>
+
+            <p class="lowOrHi"></p>
+
+        </div>
+
+    </div>
+
+    <!-- Link your JavaScript file here -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>

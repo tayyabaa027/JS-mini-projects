@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark/Light Mode Toggle</title>
+</head>
+<body>
+    <!-- <h1>Click anywhere to toggle Dark/Light Mode</h1>
+    <p>This text color and background will change when you click.</p>
+
+    <script>
+        // 1. Boolean variable to toggle dark mode
+        let darkMode = false;
+
+        // 2. Use window.onclick to detect clicks
+        window.onclick = function() {
+            console.log("Page clicked! Current darkMode:", darkMode);
+
+            // 3. Check the value of darkMode
+            if (!darkMode) {
+                // 4. If false, switch to dark mode
+                document.body.style.backgroundColor = "black";
+                document.body.style.color = "white";
+                darkMode = true; // update variable
+            } else {
+                // 5. Else, switch to light mode
+                document.body.style.backgroundColor = "white";
+                document.body.style.color = "black";
+                darkMode = false; // update variable
+            }
+        }
+        
+    </script> -->
+    <h1>Click anywhere to toggle Dark/Light Mode</h1>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let darkMode = false; // start with light mode
+
+            window.onclick = function() {
+                if (!darkMode) {
+                    document.body.style.backgroundColor = "black";
+                    document.body.style.color = "white";
+                    darkMode = true;
+                } else {
+                    document.body.style.backgroundColor = "white";
+                    document.body.style.color = "black";
+                    darkMode = false;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

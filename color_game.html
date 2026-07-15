@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Color Match Challenge</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: #76b4eb;
+      color: #333;
+    }
+
+    #gameArea {
+      margin: 20px auto;
+    }
+
+    #colorBox {
+      width: 200px;
+      height: 100px;
+      line-height: 100px;
+      margin: 20px auto;
+      font-size: 30px;
+      font-weight: bold;
+      border: 3px solid #333;
+      border-radius: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-weight: bolder;
+    }
+#startBtn{
+    padding:10px;
+    font-size: medium;
+    border-radius: 6%;
+    border: 3px solid rgb(67, 67, 180);
+
+}
+    button:disabled {
+      background: #aaa;
+      
+      cursor: not-allowed;
+    }
+
+    h1,h2 { margin: 10px 0; }
+  </style>
+</head>
+<body>
+
+<h1>🎨 Color Match Challenge</h1>
+<h2>Score: <span id="score">0</span> | Time: <span id="time">20</span>s</h2>
+<button id="startBtn">Start Game</button>
+
+<div id="gameArea">
+  <div id="colorBox"></div>
+  <div id="buttons"></div>
+</div>
+
+<script>
+const colors = ["Red", "Green", "Blue", "Yellow", "Purple"];
+const colorBox = document.getElementById("colorBox");
+const buttonsDiv = document.getElementById("buttons");
+const scoreText = document.getElementById("score");
+const timeText = document.getElementById("time");
+const startBtn = document.getElementById("startBtn");
+
+let score = 0;
+let timeLeft = 20;
+let gameInterval;
+
+// Create buttons
+colors.forEach(color => {
+  const btn = document.createElement("button");
+  btn.innerText = color;
+  btn.classList.add("btn");
+  btn.style.background = color.toLowerCase();
+  btn.style.color = "white";
+  btn.addEventListener("click", ()=>checkColor(color));
+  buttonsDiv.appendChild(btn);
+});
+
+let currentColorWord = "";
+
+function randomColor() {
+  return colors[Math.floor(Math.random()*colors.length)];
+}
+
+function showColorBox() {
+  const word = randomColor();
+  const color = randomColor().toLowerCase();
+  colorBox.innerText = word;
+  colorBox.style.color = color;
+  currentColorWord = word;
+}
+
+function checkColor(selected) {
+  if(selected === currentColorWord){
+    score++;
+    scoreText.innerText = score;
+    showColorBox();
+  }
+}
+
+// Start game
+function startGame() {
+  score = 0;
+  scoreText.innerText = score;
+  timeLeft = 20;
+  timeText.innerText = timeLeft;
+  startBtn.disabled = true;
+
+  showColorBox();
+
+  gameInterval = setInterval(()=>{
+    timeLeft--;
+    timeText.innerText = timeLeft;
+    if(timeLeft<=0){
+      clearInterval(gameInterval);
+      alert("Time's up! Score: "+score);
+      startBtn.disabled = false;
+    }
+  }, 1000);
+}
+
+startBtn.addEventListener("click", startGame);
+
+</script>
+
+</body>
+</html>

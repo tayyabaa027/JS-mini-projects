@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Whack-a-Mole</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: #ffdd57;
+            color: #333;
+        }
+
+        #gameArea {
+            width: 400px;
+            margin-top: 40px;
+            margin-left: 85px;
+            justify-self: center;
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+        }
+
+        .hole {
+            width: 100px;
+            height: 100px;
+            background: #654321;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .mole {
+            margin-bottom: 10px;
+            width: 80px;
+            height: 80px;
+            background: red;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: black;
+            color: white;
+        }
+
+        h1,
+        h2 {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🔨 Whack-a-Mole</h1>
+    <h2>Score: <span id="score">0</span> | Time: <span id="time">20</span>s</h2>
+    <button id="startBtn">Start Game</button>
+
+    <div id="gameArea"></div>
+
+    <script>
+        const gameArea = document.getElementById("gameArea");
+        const scoreText = document.getElementById("score");
+        const timeText = document.getElementById("time");
+        const startBtn = document.getElementById("startBtn");
+
+        let score = 0;
+        let moleTimeout;
+        let moleInterval;
+        let holes = [];
+        let gameTime = 20; // 20 seconds
+        let activeMoleIndex = -1;
+        let timeLeft = gameTime;
+
+        // Create 9 holes
+        for (let i = 0; i < 9; i++) {
+            const hole = document.createElement("div");
+            hole.classList.add("hole");
+            gameArea.appendChild(hole);
+            holes.push(hole);
+
+            // Hole click event
+            hole.addEventListener("click", () => {
+                if (activeMoleIndex === i) {
+                    score++;
+                    scoreText.innerText = score;
+                    removeMole(i);
+                }
+            });
+        }
+
+        // Show mole in a random hole
+        function showMole() {
+            removeMole(activeMoleIndex); // remove previous mole
+            activeMoleIndex = Math.floor(Math.random() * holes.length);
+            const mole = document.createElement("div");
+            mole.classList.add("mole");
+            holes[activeMoleIndex].appendChild(mole);
+
+            // Mole disappears if not clicked
+            moleTimeout = setTimeout(() => {
+                removeMole(activeMoleIndex);
+            }, 800); // mole visible 0.8s
+        }
+
+        // Remove mole
+        function removeMole(index) {
+            if (index < 0) return;
+            holes[index].innerHTML = "";
+            if (activeMoleIndex === index) activeMoleIndex = -1;
+            clearTimeout(moleTimeout);
+        }
+
+        // Start game
+        function startGame() {
+            score = 0;
+            scoreText.innerText = score;
+            activeMoleIndex = -1;
+            holes.forEach(h => h.innerHTML = "");
+            startBtn.disabled = true;
+
+            timeLeft = gameTime;
+            timeText.innerText = timeLeft;
+
+            moleInterval = setInterval(() => {
+                showMole();
+                timeLeft--;
+                timeText.innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(moleInterval);
+                    removeMole(activeMoleIndex);
+                    alert("Game Over! Your score: " + score);
+                    startBtn.disabled = false;
+                }
+            }, 1000); // new mole every 1 second
+        }
+
+        // Button listener
+        startBtn.addEventListener("click", startGame);
+    </script>
+
+</body>
+
+</html>

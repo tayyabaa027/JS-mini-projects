@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: darkolivegreen;
+            color: aliceblue;
+
+
+
+        }
+
+        #parent {
+            display: block;
+            justify-self: center;
+        }
+
+        table {
+            justify-self: center;
+            border: 2px solid wheat;
+        }
+
+        td,
+        th {
+
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="parent">
+        <h1>PRESS ANY KEY IT WILL DISPLAY</h1>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Code</th>
+                    <th>KeyCode</th>
+                </tr>
+            </thead>
+            <tbody id="insert">
+
+            </tbody>
+        </table>
+
+    </div>
+    <script>
+
+        const insert = document.getElementById("insert");
+        document.addEventListener("keydown", function (e) {
+            insert.innerHTML = `<td>${e.key}</td>
+            <td>${e.keyCode}</td>
+     <td>${e.code}</td>
+     `;
+
+        });
+    </script>
+</body>
+
+</html>

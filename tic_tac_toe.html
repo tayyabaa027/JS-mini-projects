@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tic Tac Toe - Epic Dark Theme</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: #fff;
+        }
+
+        h1 {
+            margin: 20px 0;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            margin: 20px auto;
+            width: 315px;
+            position: relative;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background: #222;
+            border: 2px solid #555;
+            font-size: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .cell.disabled {
+            cursor: not-allowed;
+            background: #333;
+        }
+
+        .cell:hover:not(.disabled) {
+            background: #444;
+        }
+
+        #status {
+            margin: 10px 0;
+            font-size: 20px;
+            color: #ddd;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: #444;
+            color: #fff;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #666;
+        }
+
+        button:disabled {
+            background: #222;
+            cursor: not-allowed;
+            color: #888;
+        }
+
+        /* Animated winning line */
+        #winLine {
+            position: absolute;
+            height: 5px;
+            background: gold;
+            top: 0;
+            left: 0;
+            transform-origin: left center;
+            display: none;
+            width: 0;
+            /* start from 0 for animation */
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🎮 Tic Tac Toe - Epic</h1>
+    <div id="status">Player X's turn</div>
+    <div id="board">
+        <div id="winLine"></div>
+    </div>
+    <button id="resetBtn">Restart Game</button>
+
+    <script>
+        const boardDiv = document.getElementById('board');
+        const statusDiv = document.getElementById('status');
+        const resetBtn = document.getElementById('resetBtn');
+        const winLine = document.getElementById('winLine');
+
+        let board = Array(9).fill('');
+        let currentPlayer = 'X';
+        let gameOver = false;
+
+        // Winning combinations
+        const winCombos = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        // Line positions and rotation
+        const lineStyles = [
+            { top: 50, left: 0, width: 300, rotate: 0 }, { top: 155, left: 0, width: 300, rotate: 0 }, { top: 260, left: 0, width: 300, rotate: 0 },
+            { top: 0, left: 50, width: 300, rotate: 90 }, { top: 0, left: 155, width: 300, rotate: 90 }, { top: 0, left: 260, width: 300, rotate: 90 },
+            { top: 0, left: 0, width: 425, rotate: 45 }, { top: 0, left: 0, width: 425, rotate: -45 }
+        ];
+
+        function createBoard() {
+            boardDiv.querySelectorAll('.cell').forEach(c => c.remove());
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.index = i;
+                cell.addEventListener('click', handleClick);
+                boardDiv.appendChild(cell);
+            }
+            winLine.style.display = 'none';
+            winLine.style.width = '0';
+        }
+
+        function handleClick(e) {
+            const index = e.target.dataset.index;
+            if (board[index] !== '' || gameOver) return;
+
+            board[index] = currentPlayer;
+            e.target.innerText = currentPlayer;
+            e.target.classList.add('disabled');
+
+            // Colored X/O
+            e.target.style.color = currentPlayer === 'X' ? 'red' : 'cyan';
+
+            const winComboIndex = checkWin();
+            if (winComboIndex !== -1) {
+                statusDiv.innerText = `Player ${currentPlayer} wins! 🎉`;
+                gameOver = true;
+                animateWinLine(winComboIndex);
+                return;
+            }
+
+            if (board.every(c => c !== '')) {
+                statusDiv.innerText = "It's a Draw! 🤝";
+                gameOver = true;
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusDiv.innerText = `Player ${currentPlayer}'s turn`;
+        }
+
+        function checkWin() {
+            for (let i = 0; i < winCombos.length; i++) {
+                const [a, b, c] = winCombos[i];
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        // Animate winning line
+        function animateWinLine(comboIndex) {
+            const style = lineStyles[comboIndex];
+            winLine.style.display = 'block';
+            winLine.style.top = style.top + 'px';
+            winLine.style.left = style.left + 'px';
+            winLine.style.transform = `rotate(${style.rotate}deg)`;
+            let width = 0;
+            const step = style.width / 20; // 20 frames animation
+            const anim = setInterval(() => {
+                width += step;
+                if (width >= style.width) { width = style.width; clearInterval(anim); }
+                winLine.style.width = width + 'px';
+            }, 20);
+        }
+
+        function resetGame() {
+            board = Array(9).fill('');
+            currentPlayer = 'X';
+            gameOver = false;
+            statusDiv.innerText = "Player X's turn";
+            createBoard();
+        }
+
+        resetBtn.addEventListener('click', resetGame);
+
+        createBoard();
+    </script>
+
+</body>
+
+</html>

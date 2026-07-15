@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .parent {
+            margin-top: 50px;
+            display: flex;
+            gap: 15px;
+            justify-self: center;
+        }
+
+        .parent div {
+            border: 2px solid wheat;
+            width: 130px;
+            height: 130px;
+        }
+
+        .box1 {
+            background-color: chartreuse;
+        }
+
+        .box2 {
+            background-color: deepskyblue;
+        }
+
+        .box3 {
+            background-color: lightpink
+        }
+
+        .box4 {
+            background-color: gold;
+        }
+
+        .red {
+            background-color: red;
+
+        }
+        .yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+.blue {
+    background-color: blue;
+}
+    </style>
+</head>
+
+<body style="background-color: black; color: darkcyan;">
+    <div style=" justify-self: center;">
+        <h1>CLICK ANY BOX TO CHANGE COLOR</h1>
+        <div class="parent">
+            <div class="box1 "></div>
+            <div class="box2 "></div>
+            <div class="box3 "></div>
+            <div class="box4"></div>
+        </div>
+    </div>
+    <script>
+        const box1 = document.querySelector(".box1");
+        box1.addEventListener("click", function () {
+            box1.classList.toggle("red");
+            if (document.body.style.backgroundColor == "black") {
+                document.body.style.backgroundColor = "green";
+                document.body.style.color = "white";
+            }
+            else {
+                document.body.style.backgroundColor = "black";
+                document.body.style.color = "darkcyan";
+            }
+        })
+        const box2 = document.querySelector(".box2");
+box2.addEventListener("click", function () {
+    box2.classList.toggle("yellow");
+
+    if (document.body.style.backgroundColor == "black") {
+        document.body.style.backgroundColor = " deepskyblue";
+        document.body.style.color = "black";
+    } else {
+        document.body.style.backgroundColor = "black";
+        document.body.style.color = "darkcyan";
+     
+    }
+});
+
+const box3 = document.querySelector(".box3");
+box3.addEventListener("click", function () {
+    box3.classList.toggle("green");
+
+    if (document.body.style.backgroundColor == "black") {
+        document.body.style.backgroundColor = "pink";
+        document.body.style.color = "white";
+    } else {
+        document.body.style.backgroundColor = "black";
+        document.body.style.color = "darkcyan";
+        
+    }
+});
+
+const box4 = document.querySelector(".box4");
+box4.addEventListener("click", function () {
+    box4.classList.toggle("blue");
+
+    if (document.body.style.backgroundColor == "black") {
+        document.body.style.backgroundColor = "yellow";
+        document.body.style.color = "white";
+    } else {
+        document.body.style.backgroundColor = "black";
+        document.body.style.color = "darkcyan";
+        
+    }
+});
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+            color: blanchedalmond;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div {
+            background-color: darkgoldenrod;
+            color: rgb(235, 229, 229);
+            width: 200px;
+            height: 70px;
+            font-size: xx-large;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        YOUR LOCAL TIME
+    </h1>
+    <div id="clock"></div>
+    <script>
+        const clock = document.getElementById("clock");
+
+        setInterval(function () {
+            let date = new Date();
+            clock.innerHTML = date.toLocaleTimeString();
+        }, 1000);
+    </script>
+</body>
+
+</html>
