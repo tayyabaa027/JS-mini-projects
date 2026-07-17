@@ -8,7 +8,7 @@ function createUser(username, email, password) {
 
     // Call SetUsername and make its 'this'
     // point to the current object being created
-    SetUsername.call( username);
+    SetUsername.call( this,username);
 
     this.email = email;
     this.password = password;
